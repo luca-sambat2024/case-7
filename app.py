@@ -6,8 +6,12 @@ from datetime import datetime
 import os
 from flask_cors import CORS
 
+STORAGE_ACCOUNT_URL = os.getenv("STORAGE_ACCOUNT_URL")
+IMAGES_CONTAINER = os.getenv("IMAGES_CONTAINER", "lanternfly-images")
+AZURE_STORAGE_CONNECTION_STRING = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
+
 bsc = BlobServiceClient.from_connection_string(os.environ["AZURE_STORAGE_CONNECTION_STRING"])
-cc  = bsc.get_container_client("lanternfly-images") # Replace with Container name cc.url will get you the url path to the container.  
+cc  = bsc.get_container_client(os.getenv("IMAGES_CONTAINER", "lanternfly-images")) # Replace with Container name cc.url will get you the url path to the container.  
 app = Flask(__name__)
 CORS(app)
 
